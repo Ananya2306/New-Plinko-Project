@@ -1,4 +1,4 @@
-class Rows{
+class Line{
     constructor(x,y,w,h){
         var options = {
             isStatic : true,
