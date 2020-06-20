@@ -7,20 +7,20 @@ var engine,world;
 
 var particles = [];
 var plinkos=[];
-var rows=[];
+var lines=[];
 var ground;
-var rows;
-
-
+var lines;
 var rowsHeight = 150;
 
 function setup() {
+  // create canvas
   createCanvas(800,600);
-  
+  // create engine
   engine = Engine.create();
   world = engine.world;
+  // make ground
   ground = new Ground(400,600,800,20);
-
+// make plinko 
   for(var j = 40; j<= width; j = j+50){
     plinkos.push(new Plinko(j , 10))
   }
@@ -45,34 +45,39 @@ function setup() {
   for(var j = 15; j<= width-10; j = j+50){
     plinkos.push(new Plinko(j ,350))
   }
+  // make divisions 
   for(var k = 0; k <=width; k = k+80){
-    rows.push(new Rows(k, height-rowsHeight/2, 10, rowsHeight));
+    lines.push(new Line(k, height-rowsHeight/2, 10, rowsHeight));
   }
 }
 
 function draw() {
+  // give color to the background
+  background("black");
+  // update engine
+   Engine.update(engine, 25);
+  
+  // make particles 
   if(frameCount % 30 === 0){
     particle = new Particle(random(120, 500), 0, 7, random(0, 360));
     particles.push(particle);
   }
-
-  background("black");
-  Engine.update(engine, 25);
-  for(var i = 0; i < particles.length; i++){
+  
+  // fall particles randomly
+ for(var i = 0; i < particles.length; i++){
     particles[i].display();
   }
-
- for(var k = 0; k<rows.length;k++){
-    rows[k].display();
+  
+// display divisions
+ for(var k = 0; k<lines.length;k++){
+    lines[k].display();
  }
 
-
+// display plinkos
   for(var j = 0; j<plinkos.length;j++){
     plinkos[j].display();
  }
-
-
-//rows.display();
+// display ground
 ground.display();
 
 }
